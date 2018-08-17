@@ -22,14 +22,10 @@ function validateForm() {
     } else if ((countDigits(requestee_phone) < 10)) {
         phoneNumberErrorMessage = "Requestor's phone number should have 10 digits - അപേക്ഷകന്റെ ഫോൺ നമ്പറിൽ പത്തു ഡിജിറ്റ്സ് വേണം";
         isFormValid = false;
-    }
-
-    if(requestee_phone.includes("-")) {
+    } else if(requestee_phone.includes("-")) {
         phoneNumberErrorMessage = "Requestor's phone number should not have minus sign - അപേക്ഷകന്റെ ഫോൺ നമ്പറിൽ മൈനസ് സൈൻ പാടില്ല";
         isFormValid = false;
-    }
-
-    if(requestee_phone.includes("e")) {
+    } else if(requestee_phone.includes("e")) {
         phoneNumberErrorMessage = "Requestor's phone number should not have 'e' - അപേക്ഷകന്റെ ഫോൺ നമ്പറിൽ e പാടില്ല";
         isFormValid = false;
     }
