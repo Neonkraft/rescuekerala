@@ -16,13 +16,17 @@ function validateForm() {
     var phoneNumberErrorMessage = "";
     var requestee_phone = $('#id_requestee_phone').val();
 
+    // First validate that there are exactly ten digits
     if(countDigits(requestee_phone) > 10) {
         phoneNumberErrorMessage = "Requestor's phone number should not have more than 10 digits - അപേക്ഷകന്റെ ഫോൺ നമ്പറിൽ പത്തിൽ കൂടുതൽ ഡിജിറ്റ്സ് പാടില്ല";
         isFormValid = false;
     } else if ((countDigits(requestee_phone) < 10)) {
         phoneNumberErrorMessage = "Requestor's phone number should have 10 digits - അപേക്ഷകന്റെ ഫോൺ നമ്പറിൽ പത്തു ഡിജിറ്റ്സ് വേണം";
         isFormValid = false;
-    } else if(requestee_phone.includes("-")) {
+    }
+
+    // then validate that there are no extra characters like minus and e
+    if(requestee_phone.includes("-")) {
         phoneNumberErrorMessage = "Requestor's phone number should not have minus sign - അപേക്ഷകന്റെ ഫോൺ നമ്പറിൽ മൈനസ് സൈൻ പാടില്ല";
         isFormValid = false;
     } else if(requestee_phone.includes("e")) {
