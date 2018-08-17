@@ -3,7 +3,47 @@
 {% load static %}
 
 {% block content %}
-  <form method="post"  class="simple-form">
+
+<script type="text/javascript">
+
+function countDigits(string) {
+    var count = (string.match(/\d/g) || []).length
+    return count
+}
+
+function validateForm() {
+    var isFormValid = true;
+    var phoneNumberErrorMessage = "";
+    var requestee_phone = $('#id_requestee_phone').val();
+
+    if(countDigits(requestee_phone) > 10) {
+        phoneNumberErrorMessage = "Requestor's phone number should not have more than 10 digits - അപേക്ഷകന്റെ ഫോൺ നമ്പറിൽ പത്തിൽ കൂടുതൽ ഡിജിറ്റ്സ് പാടില്ല";
+        isFormValid = false;
+    } else if ((countDigits(requestee_phone) < 10)) {
+        phoneNumberErrorMessage = "Requestor's phone number should have 10 digits - അപേക്ഷകന്റെ ഫോൺ നമ്പറിൽ പത്തു ഡിജിറ്റ്സ് വേണം";
+        isFormValid = false;
+    }
+
+    if(requestee_phone.includes("-")) {
+        phoneNumberErrorMessage = "Requestor's phone number should not have minus sign - അപേക്ഷകന്റെ ഫോൺ നമ്പറിൽ മൈനസ് സൈൻ പാടില്ല";
+        isFormValid = false;
+    }
+
+    if(requestee_phone.includes("e")) {
+        phoneNumberErrorMessage = "Requestor's phone number should not have 'e' - അപേക്ഷകന്റെ ഫോൺ നമ്പറിൽ e പാടില്ല";
+        isFormValid = false;
+    }
+
+    if(!isFormValid) {
+        $('#phoneNumberErrorMessage').text(phoneNumberErrorMessage);
+        $('#phoneNumberModal').modal('show');
+    }
+
+    return isFormValid
+}
+
+</script>
+  <form method="post"  class="simple-form" onsubmit="return validateForm()">
   {% csrf_token %}
   {% bootstrap_form form %}
   <a id="location-manually" class="btn btn-primary pull-right">
@@ -39,6 +79,19 @@
       </div>
       <div class="modal-footer">
         <button class="btn" data-dismiss="modal" id="modal_ok_button" aria-hidden="true">Ok</button>
+      </div>
+    </div>
+  </div>
+
+<!-- Phone number modal -->
+<div id="phoneNumberModal" class="modal fade" role="dialog" >
+    <div class="modal-dialog" style="background: white">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" >×</button>
+        <h5 id="phoneNumberErrorMessage"></h5>
+      </div>
+      <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" id="phone_modal_ok_button" >Ok</button>
       </div>
     </div>
   </div>
