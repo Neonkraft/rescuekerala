@@ -36,7 +36,7 @@ function validateForm() {
 
     if(!isFormValid) {
         $('#phoneNumberErrorMessage').text(phoneNumberErrorMessage);
-        $('#phoneNumberModal').modal('show');
+        $('#phoneNumberErrorModal').modal('show');
     }
 
     return isFormValid
@@ -83,8 +83,8 @@ function validateForm() {
     </div>
   </div>
 
-<!-- Phone number modal -->
-<div id="phoneNumberModal" class="modal fade" role="dialog" >
+  <!-- Phone number error modal -->
+  <div id="phoneNumberErrorModal" class="modal fade" role="dialog" >
     <div class="modal-dialog" style="background: white">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" >×</button>
